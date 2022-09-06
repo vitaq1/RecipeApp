@@ -1,7 +1,12 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
+
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
 
 android {
     compileSdk 31
@@ -33,6 +38,19 @@ android {
 
 dependencies {
 
+    def version_kotlin = "1.3.72"
+    def version_nav = "2.3.0"
+    def version_glide = "4.11.0"
+    def version_kotlin_coroutines = "1.3.9"
+    def version_lifecycle = "2.2.0"
+    def version_retrofit = "2.9.0"
+    def version_hilt = "2.28-alpha"
+    def version_hilt_jetpack = "1.0.0-alpha02"
+    def version_room = "2.2.5"
+    def version_datastore = "1.0.0-alpha01"
+    def version_paging = "3.0.0-alpha06"
+
+
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
@@ -41,5 +59,53 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
+// Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$version_nav"
+    implementation "androidx.navigation:navigation-ui-ktx:$version_nav"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
+    // Glide image loading
+    implementation "com.github.bumptech.glide:glide:$version_glide"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_kotlin_coroutines"
+
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$version_lifecycle"
+
+    // ViewPager2 page indicator
+    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$version_retrofit"
+
+    // Loading Indicators
+    implementation "com.github.ybq:Android-SpinKit:1.4.0"
+
+    // Hilt
+    implementation "com.google.dagger:hilt-android:2.39.1"
+    kapt "com.google.dagger:hilt-android-compiler:2.39.1"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
+    kapt "androidx.hilt:hilt-compiler:1.0.0"
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
+
+    // Room Database
+    implementation "androidx.room:room-runtime:$version_room"
+    kapt "androidx.room:room-compiler:$version_room"
+    implementation "androidx.room:room-ktx:$version_room" // Kotlin Extensions and Coroutines support
+    testImplementation "androidx.room:room-testing:$version_room" // Test helpers
+
+    // Preferences DataStore
+    implementation "androidx.datastore:datastore-preferences:$version_datastore"
+
+    // Photo View
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+
+    // Paging
+    implementation "androidx.paging:paging-runtime:$version_paging"
+
+    // Play Core
+    implementation 'com.google.android.play:core:1.8.0'
+    implementation 'com.google.android.play:core-ktx:1.8.1'
 }
